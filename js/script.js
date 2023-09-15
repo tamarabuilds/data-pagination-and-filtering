@@ -18,7 +18,15 @@ const ITEMS_PER_PAGE = 9
  * 
  ***/
 function showSearch(){
-   
+   const header = document.querySelector('header')
+   const html = `
+      <label for="search" class="student-search">
+         <span>Search by name</span>
+         <input id="search" placeholder="Search by name...">
+         <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+      </label>
+   `
+   header.insertAdjacentHTML('beforeend', html)
 }
 
 
@@ -113,4 +121,5 @@ function addPagination(list){
 
 // Call functions
 showPage(data, 1)
+showSearch()
 addPagination(data)
