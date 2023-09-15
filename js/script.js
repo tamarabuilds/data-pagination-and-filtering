@@ -16,17 +16,39 @@ const ITEMS_PER_PAGE = 9
 /*** 
  *    `showSearch` function will show the search bar
  * 
+ *    No params or return
  ***/
-function showSearch(){
+function showAndEnableSearch(list){
    const header = document.querySelector('header')
    const html = `
       <label for="search" class="student-search">
          <span>Search by name</span>
          <input id="search" placeholder="Search by name...">
          <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
-      </label>
-   `
+      </label>`
    header.insertAdjacentHTML('beforeend', html)
+
+   header.addEventListener('keyup', (e)=> {
+      const input = e.target.value.toLowerCase()
+      let searchResults = []
+      // console.log(input)
+
+      for (let i = 0; i < list.length; i++){
+         const fullName = `${list[i].name.first.toLowerCase()} ${list[i].name.last.toLowerCase()}`
+         if (fullName.includes(input)){
+            console.log(`yes`)
+            searchResults.push(list[i])
+         }
+      }
+
+      if (searchResults.length > 0){
+         addPagination(searchResults)
+         console.log(searchResults.length)
+      } else {
+         header.insertAdjacentHTML('afterend', `<h3>No results found</h3>`)
+      }
+
+   })
 }
 
 
@@ -121,5 +143,5 @@ function addPagination(list){
 
 // Call functions
 showPage(data, 1)
-showSearch()
 addPagination(data)
+showAndEnableSearch(data)
