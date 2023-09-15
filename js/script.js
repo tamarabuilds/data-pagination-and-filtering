@@ -20,6 +20,8 @@ const ITEMS_PER_PAGE = 9
  ***/
 function showAndEnableSearch(list){
    const header = document.querySelector('header')
+   const ul = document.querySelector('.student-list')
+   const ulPagination = document.querySelector('.link-list')
    const html = `
       <label for="search" class="student-search">
          <span>Search by name</span>
@@ -29,23 +31,22 @@ function showAndEnableSearch(list){
    header.insertAdjacentHTML('beforeend', html)
 
    header.addEventListener('keyup', (e)=> {
+      const filteredList = []
       const input = e.target.value.toLowerCase()
-      let searchResults = []
-      // console.log(input)
 
       for (let i = 0; i < list.length; i++){
          const fullName = `${list[i].name.first.toLowerCase()} ${list[i].name.last.toLowerCase()}`
          if (fullName.includes(input)){
-            console.log(`yes`)
-            searchResults.push(list[i])
+            filteredList.push(list[i])
          }
       }
 
-      if (searchResults.length > 0){
-         addPagination(searchResults)
-         console.log(searchResults.length)
+      if (filteredList.length > 0){
+         addPagination(filteredList)
+         showPage(filteredList, 1)
       } else {
-         header.insertAdjacentHTML('afterend', `<h3>No results found</h3>`)
+         ul.innerHTML = `<h3>Sorry, no results found</h3>`
+         ulPagination.innerHTML = ''
       }
 
    })
