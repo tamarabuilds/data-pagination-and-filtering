@@ -106,44 +106,39 @@ This function will create and insert/append the elements needed for the paginati
  ***/
 function addPagination(list){
    const numberOfPages = Math.ceil (list.length / ITEMS_PER_PAGE)
-   const ul = document.querySelector('.link-list')
+   const ulPagination = document.querySelector('.link-list')
    // To reset the pagination on screen, set innerHTML to empty string
-   ul.innerHTML = ''
+   ulPagination.innerHTML = ''
 
    for ( let i = 1; i <= numberOfPages; i++){
       const html = `
          <li>
             <button type='button'>${i}</button>
          </li>`
-      ul.insertAdjacentHTML('beforeend', html)
+      ulPagination.insertAdjacentHTML('beforeend', html)
    }
 
-   const firstPageButton = ul.firstElementChild.querySelector('button')
+   const firstPageButton = ulPagination.firstElementChild.querySelector('button')
    firstPageButton.classList.add('active')
 
-   ul.addEventListener('click', (e)=> {
+   ulPagination.addEventListener('click', (e)=> {
+      const activePageButton = ulPagination.querySelector('.active')
+      // Using closest so that user can click between buttons without triggering an event
       const clickedPageButton = e.target.closest('button')
-      const activePageButton = ul.querySelector('.active')
 
       if (activePageButton && clickedPageButton) {
          activePageButton.classList.remove('active')
-      }
-
-      if (clickedPageButton) {
          clickedPageButton.classList.add('active')
          showPage(list, clickedPageButton.innerHTML)
-
       }
 
       /***
-       * Snippits of my inital solution is below... it was ugly bit I think I was resourcesful
+       * Snippits of my inital solution are below just to show how ugly but effective I started
        * 
        * if (e.target.tagName === 'BUTTON')
        *  const clickedPageNumber = e.target.textContent
-       * const clickedPageButton = ul.querySelector(`li:nth-child(${clickedPageNumber}) button`)
-       * showPage(list, clickedPageNumber)   
-       * 
-       * 
+       * const clickedPageButton = ulPagination.querySelector(`li:nth-child(${clickedPageNumber}) button`)
+       *  
        */
       
    })
