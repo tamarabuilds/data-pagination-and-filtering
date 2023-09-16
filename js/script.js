@@ -14,9 +14,10 @@ For assistance:
 const ITEMS_PER_PAGE = 9
 
 /*** 
- *    `showSearch` function will show the search bar
+ *    `showSearch` function will show the seach bar and results, if any from the user's input
  * 
- *    No params or return
+ *    @param {array} list - array of student objects
+ *    No return
  ***/
 function showAndEnableSearch(list){
    const header = document.querySelector('header')
@@ -89,16 +90,12 @@ This function will create and insert/append the elements needed to display a "pa
          ul.insertAdjacentHTML('beforeend', html)
       }
    }
-   return                                                                           // ????????????????? What should we do with functions with no returns?
  }
-
-
 
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
-
 
 /*** 
  *    `addPagination` function will display pagination buttons
@@ -125,20 +122,31 @@ function addPagination(list){
    firstPageButton.classList.add('active')
 
    ul.addEventListener('click', (e)=> {
-      if (e.target.tagName === 'BUTTON'){
-         const activePageButton = ul.querySelector('.active')
+      const clickedPageButton = e.target.closest('button')
+      const activePageButton = ul.querySelector('.active')
+
+      if (activePageButton && clickedPageButton) {
          activePageButton.classList.remove('active')
-
-         const clickedPageNumber = e.target.textContent
-         const clickedPageButton = ul.querySelector(`li:nth-child(${clickedPageNumber}) button`)                     /// !!!!!! Ugly but should work :)
-         clickedPageButton.classList.add('active')
-
-         showPage(list, clickedPageNumber)
       }
 
+      if (clickedPageButton) {
+         clickedPageButton.classList.add('active')
+         showPage(list, clickedPageButton.innerHTML)
 
+      }
+
+      /***
+       * Snippits of my inital solution is below... it was ugly bit I think I was resourcesful
+       * 
+       * if (e.target.tagName === 'BUTTON')
+       *  const clickedPageNumber = e.target.textContent
+       * const clickedPageButton = ul.querySelector(`li:nth-child(${clickedPageNumber}) button`)
+       * showPage(list, clickedPageNumber)   
+       * 
+       * 
+       */
+      
    })
-
 }
 
 
