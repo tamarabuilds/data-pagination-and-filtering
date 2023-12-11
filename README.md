@@ -4,6 +4,11 @@ Learn more about the developer on <a href="https://www.linkedin.com/in/tamarabui
 
 Unit 02 project for the Full Stack JavaScript Techdegree. This project focuses on pagination to enhance the usability of this ficional student directory. With an initial list of 42 students, this code displays only 9 students per page.
 
+<img width="1930" alt="image" src="https://github.com/tamarabuilds/data-pagination-and-filtering/assets/98510821/dfc29f57-0e82-4f5b-bd9a-645ef4698ff6">
+
+
+Live site: https://tamarabuilds.github.io/data-pagination-and-filtering/
+
 
 ## How It's Made
 
